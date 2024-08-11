@@ -26,7 +26,9 @@ impl ReleaseSetNumbers {
             }
             asset_count += release.assets.len();
             for asset in release.assets {
-                download_count += asset.download_count;
+                if asset.name != "dist-manifest.json" {
+                    download_count += asset.download_count;
+                }
             }
         }
 
