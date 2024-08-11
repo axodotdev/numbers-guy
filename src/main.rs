@@ -12,22 +12,25 @@ mod repo;
 
 #[derive(Debug, Parser)]
 pub struct Args {
-    #[arg(long)]
-    project: String,
+    /// A comma-separated list of projects in repo-slug format: `owner/repo`
+    #[arg(long, value_delimiter = ',')]
+    projects: Vec<String>,
 }
 
 #[tokio::main]
 async fn main() -> Result<(), NumbersGuyError> {
     dotenv().expect(".env file not found");
     let token = env::var("GITHUB_TOKEN").expect("didn't find a GITHUB_TOKEN in the .env file");
+    octocrab::initialise(Octocrab::builder().personal_token(token).build()?);
 
     let args = Args::parse();
-    let project = Repo::parse(args.project);
+    for project in args.projects {
+        let project = Repo::parse(project);
 
-    octocrab::initialise(Octocrab::builder().personal_token(token).build()?);
-    let numbers = ReleaseSetNumbers::get(&project.owner, &project.repo).await?;
+        let numbers = ReleaseSetNumbers::get(&project.owner, &project.repo).await?;
 
-    println!("Total release count: {}", numbers.count);
-    println!("Stable release count: {}", numbers.stable_release_count);
+        println!("Total release count: {}", numbers.count);
+        println!("Stable release count: {}", numbers.stable_release_count);
+    }
     Ok(())
 }

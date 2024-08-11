@@ -9,9 +9,9 @@
 ## Usage
 
 ```sh
-Usage: numbers-guy --project <PROJECT>
+Usage: numbers-guy [OPTIONS]
 
 Options:
-      --project <PROJECT>
-  -h, --help               Print help
+      --projects <PROJECTS>  A comma-separated list of projects in repo-slug format: `owner/repo`
+  -h, --help                 Print help
 ```
