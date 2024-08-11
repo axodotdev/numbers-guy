@@ -29,8 +29,11 @@ async fn main() -> Result<(), NumbersGuyError> {
 
         let numbers = ReleaseSetNumbers::get(&project.owner, &project.repo).await?;
 
+        println!("PROJECT: {}/{}", project.owner, project.repo);
         println!("Total release count: {}", numbers.count);
         println!("Stable release count: {}", numbers.stable_release_count);
+        println!("Asset count: {}", numbers.asset_count);
+        println!("Download count: {}", numbers.download_count);
     }
     Ok(())
 }
