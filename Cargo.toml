@@ -2,7 +2,7 @@
 name = "numbers-guy"
 description = "📈 a little CLI for fetching release and release asset data from GitHub"
 homepage = "https://github.com/axodotdev/numbers-guy"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 repository = "https://github.com/axodotdev/numbers-guy"
 
